@@ -1,0 +1,533 @@
+/* -----------------------------------------------------------------------------------------
+  ____                                      
+ / ___|___  _ __ ___  _ __ ___   ___  _ __  
+| |   / _ \| '_ ` _ \| '_ ` _ \ / _ \| '_ \ 
+| |__| (_) | | | | | | | | | | | (_) | | | |
+ \____\___/|_| |_| |_|_| |_| |_|\___/|_| |_|
+                                            
+*/
+
+.draft {
+    background-image: url(draft.png);
+}
+
+li {
+    padding-left: 0;
+    margin-left: 0;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+@media print {
+    body {
+        margin-top: 0; margin-bottom: 0; margin-left: 0; margin-right: 0;
+    }
+    
+    /* Beim Drucken Kopf- und Fusszeile mit Links ausblenden;
+       Die Links sind sowieso witzlos, interessant waeren nur Titel und Zeitstempel.
+       Den Seitentitel fuegt Fx sowieso oben ein, das Datum unten.
+    
+    .header, .footer {
+        display: none;
+    }
+    */
+}
+
+/* -----------------------------------------------------------------------------------------
+ _     _       _        
+| |   (_)_ __ | | _____ 
+| |   | | '_ \| |/ / __|
+| |___| | | | |   <\__ \
+|_____|_|_| |_|_|\_\___/
+                        
+*/
+
+a:link  { 
+    color: blue;
+}
+
+a:visited  { 
+    color: navy;
+}
+
+a:hover  { 
+    background-color: #ccf;
+}
+
+/* -----------------------------------------------------------------------------------------
+ ____                    _                _ 
+|  _ \ __ _  __ _  ___  | | _____   _____| |
+| |_) / _` |/ _` |/ _ \ | |/ _ \ \ / / _ \ |
+|  __/ (_| | (_| |  __/ | |  __/\ V /  __/ |
+|_|   \__,_|\__, |\___| |_|\___| \_/ \___|_|
+            |___/                           
+*/
+
+.titletext {
+    /* font-size: 150%; */
+    font-weight: bold; 
+}
+
+.uplink {
+    /* font-size: 80%; */
+}
+
+.toplink {
+    text-decoration: none;
+}
+
+.header {
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+    border-color: silver;
+    width: 100%;
+}
+
+.footer {
+    /* background-color: #eef; */
+    border-top-width: 2px;
+    border-top-style: solid;
+    border-color: silver;
+    width: 100%;
+}
+
+.cellleft {
+    text-align: left;
+    vertical-align: top;
+}
+
+.cellright {
+    text-align: right;
+    vertical-align: top;
+}
+
+.arrows {
+    text-decoration: none;
+    /* font-size: 150%; */
+    padding-left: 0.5ex;
+    padding-right: 0.5ex;
+}
+
+.separator {
+    border-top-width: 1px;
+    border-top-style: solid;
+    border-color: silver;
+}
+
+h1 {
+    font-weight: bold;
+    font-size: large;
+    /* border-top: 1px solid silver; */
+    margin-bottom: 1em;
+    padding: 0.25em;
+    background-color: #666;
+    color: white;
+}
+
+h2 {
+    font-weight: bold;
+    font-size: larger;
+    /* border-top: 1px solid silver; */
+    margin-bottom: 1em;
+    border-top: 1.5px solid black;
+}
+
+h3 {
+    font-weight: bold;
+    /* border-top: 1px solid silver; */
+    margin-bottom: 1em;
+    border-top: 1px dashed black;
+}
+
+/* -----------------------------------------------------------------------------------------
+ _____ _                           _     _                _ 
+| ____| | ___ _ __ ___   ___ _ __ | |_  | | _____   _____| |
+|  _| | |/ _ \ '_ ` _ \ / _ \ '_ \| __| | |/ _ \ \ / / _ \ |
+| |___| |  __/ | | | | |  __/ | | | |_  | |  __/\ V /  __/ |
+|_____|_|\___|_| |_| |_|\___|_| |_|\__| |_|\___| \_/ \___|_|
+                                                            
+*/
+
+.formatted {
+    /* so breit, wie das linksbündige Bild beispiel.jpg */
+    margin-left: 2em;
+    padding: 0.2em;
+    border-width: 1px;
+    border-style: solid;
+    border-color: silver;
+    background: #fdfdfd;
+}
+
+.quoted {
+    /* background-color: #eee; */
+    margin-left: 2em;
+    margin-top: .5em;
+    margin-bottom: .5em;
+    vertical-align: middle;
+}
+
+code {
+    /* font-weight: bold; */
+}
+
+.colored {
+    background: hsl(120, 100%, 90%);
+    padding: 1px;
+}
+
+.colored1 {
+    background: hsl(40, 100%, 90%);
+    padding: 1px;
+}
+
+.colored3 {
+    background: hsl(260, 100%, 90%);
+    padding: 1px;
+}
+
+.colored4 {
+    background: hsl(300, 100%, 90%);
+    padding: 1px;
+}
+
+.colored2 {
+    background: hsl(220, 100%, 90%);
+    padding: 1px;
+}
+
+.colored5 {
+    background: hsl(170, 100%, 90%);
+    padding: 1px;
+}
+
+.colored6 {
+    background: hsl(10, 100%, 90%);
+    padding: 1px;
+}
+
+.colored7 {
+    background: #ddd;
+    padding: 1px;
+}
+
+.figure {
+    margin-left: 2em;
+    margin-top: .5em;
+    margin-bottom: .5em;
+}
+
+object {
+    margin-left: 2em;
+    margin-top: .5em;
+    margin-bottom: .5em;
+}
+
+table object {
+    margin: 0.2em;
+}
+
+.tab {
+    margin-left: 2em;
+    margin-top: .25em;
+    margin-bottom: .25em;
+    /* border-spacing: 0; */
+    border-collapse: collapse;
+    empty-cells: show;
+}
+
+.tab1 {
+    border-width: 1px;
+    border-color: gray;
+    border-style: solid;
+    padding: 2px;
+    /* vertical-align: middle; */
+    /*padding-right: 2em;*/
+}
+
+.tab2 {
+    border-width: 1px;
+    border-color: gray;
+    border-style: solid;
+    border-bottom-width: 2px;
+    border-bottom-style: double;
+    padding: 2px;
+    /*padding-right: 2em;*/
+}
+
+.tab3 {
+    border-width: 0px;
+    border-color: gray;
+    border-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    padding: 2px;
+    /*padding-right: 2em;*/
+}
+
+.tab0 {
+    border-width: 0;
+    padding: 2px;
+    /*padding-right: 2em;*/
+}
+
+td {
+    padding: 0;
+}
+
+.footnote {
+    font-family: monospace;
+    text-decoration: none;
+}
+
+.codeyellow {
+    background-color: #ffe0a0;
+    text-decoration: line-through;
+}
+
+.codegreen {
+    background-color:  #e0ffa0;
+    text-decoration: underline
+}
+
+.codeblue {
+    background-color:  #a0e0ff;
+    text-decoration: underline
+}
+
+.colorbox {
+    background-color:  #b0fff0;
+    padding: 1em;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+}
+
+/* -----------------------------------------------------------------------------------------
+ __  __ _          
+|  \/  (_)___  ___ 
+| |\/| | / __|/ __|
+| |  | | \__ \ (__ 
+|_|  |_|_|___/\___|
+                   
+*/
+
+ol {
+    margin-left: 2em;
+    padding-left: 0em;
+    margin-top: 0.5em;
+    margin-bottom: .5em;
+}
+
+dl {
+    margin-left: 2em;
+    margin-top: 0.5em;
+    margin-bottom: .5em;
+}
+
+ul {
+    /* margin-left: 2em; */
+    padding-top: 0em; 
+    padding-left: 2em;
+    margin-top: 0.5em; 
+    margin-bottom: 0.5em;
+}
+
+li  { 
+    padding-bottom: 0.5em;
+    padding-left: 0.5em;
+}
+
+dt  { 
+    padding-top: 0.5em;
+}
+
+img {
+    border-style: none;
+    padding: 1em;
+}
+
+img.icon {
+    border-style: none;
+    padding: 0;
+}
+
+pre img {
+    border-style: none;
+    padding: 0;
+}
+
+div.teachbox  { 
+    background-color: #f0f0f0; 
+    color: #666;
+    padding: 0.5emx; 
+    margin-top: 0.5em;
+    /* margin-left: 2em; */
+    border-width: thin; 
+    border-style: dotted;
+}
+
+.overline {
+    border-top-style: solid;
+    border-top-width: 1px;
+}
+
+.announcement {
+    vertical-align: middle;
+    margin-bottom: 2em;
+}
+
+div.insert {
+    background-color: #eee;
+    padding: 1em;
+    border-color: gray; 
+    border-style: dotted; 
+    border-width: 2px;
+}
+
+.red {
+    border-left-width: 1em;
+    border-left-color: red;
+    border-left-style: solid;
+}
+
+.green {
+    border-left-width: 1em;
+    border-left-color: lime;
+    border-left-style: solid;
+}
+
+.key {
+    border: 1px solid black;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+.level-2, .level-3, .level-4, .level-5 {
+    margin-left: 4em;
+    border-left-width: 1px;
+    border-left-style: dotted;
+    border-color: silver;
+}
+
+/* -----------------------------------------------------------------------------------------
+  ___  ____    __     __    _   _             
+ / _ \|  _ \   \ \   / /__ | |_(_)_ __   __ _ 
+| | | | |_) |___\ \ / / _ \| __| | '_ \ / _` |
+| |_| |  _ <_____\ V / (_) | |_| | | | | (_| |
+ \__\_\_| \_\     \_/ \___/ \__|_|_| |_|\__, |
+                                        |___/ 
+*/
+div.qr {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    float: right;   /* QR-Code an den rechten Seitenrand, Text links davon */
+}
+
+div.qr > img {
+    padding: 0;
+}
+
+#choice-a, #choice-b, #choice-c, #choice-d {
+    height: 2em;
+    padding-left: 2em;
+    padding-right: 2em;
+    font-weight: bold;
+    border-right: 1em solid rgba(255, 255, 255, 0);
+    /* font-size: large; */
+}
+
+#choice-a {
+    background-color: #0af;
+}
+
+#choice-b {
+    background-color: #8f0;
+}
+
+#choice-c {
+    background-color: #ff0;
+}
+
+#choice-d {
+    background-color: #fa0;
+}
+
+#choice-a:before {
+    content: "A";
+}
+
+#choice-b:before {
+    content: "B";
+}
+
+#choice-c:before {
+    content: "C";
+}
+
+#choice-d:before {
+    content: "D";
+}
+
+/* -----------------------------------------------------------------------------------------
+ ____       _  __ _            _   
+/ ___|  ___| |/ _| |_ ___  ___| |_ 
+\___ \ / _ \ | |_| __/ _ \/ __| __|
+ ___) |  __/ |  _| ||  __/\__ \ |_ 
+|____/ \___|_|_|  \__\___||___/\__|
+                                   
+*/
+#choice {
+    padding-right: 1em;     /* Abstand Box zum Fragentext */
+    font-size: large;       /* Box leichter zu treffen */
+}
+
+#choice:before {
+    /* 
+    http://www.unicode.org/charts, Geometric Shapes
+    http://stackoverflow.com/questions/190396/adding-html-entities-using-css-content
+    */
+    content: "\25a2"        /* Box einbauen */
+}
+
+/* -----------------------------------------------------------------------------------------
+ ____            
+| __ )  _____  __
+|  _ \ / _ \ \/ /
+| |_) | (_) >  < 
+|____/ \___/_/\_\
+                 
+*/
+.box {
+    padding: 1em;     /* Abstand Box zum Fragentext */
+    padding-right: 4em;     /* Abstand Box zum Fragentext */
+    border: 1px solid black;
+}
+
+.longbox  {
+    padding: 1em;     /* Abstand Box zum Fragentext */
+    padding-right: 20em;     /* Abstand Box zum Fragentext */
+    border: 1px solid black;
+}
+
+.box:before, .longbox:before {
+    /* 
+    http://www.unicode.org/charts, Geometric Shapes
+    http://stackoverflow.com/questions/190396/adding-html-entities-using-css-content
+    */
+    content: "\a0"        /* Box einbauen */
+}
+
+/* -----------------------------------------------------------------------------------------
+ ____  _             _             _                           _       
+/ ___|(_)_ __   __ _| | ___    ___| | ___ _ __ ___   ___ _ __ | |_ ___ 
+\___ \| | '_ \ / _` | |/ _ \  / _ \ |/ _ \ '_ ` _ \ / _ \ '_ \| __/ __|
+ ___) | | | | | (_| | |  __/ |  __/ |  __/ | | | | |  __/ | | | |_\__ \
+|____/|_|_| |_|\__, |_|\___|  \___|_|\___|_| |_| |_|\___|_| |_|\__|___/
+               |___/                                                   
+*/
+img[src='announcement.png'] {
+    padding: 0;
+    margin: 0;
+}

@@ -1,0 +1,216 @@
+.....server stopped
+...server up
+curl -s --no-buffer -D /dev/stdout -X POST http://localhost:4938/foo
+[foo]
+HTTP/1.0 201 Created
+curl -s --no-buffer -D /dev/stdout -X POST http://localhost:4938/foo
+[foo]
+HTTP/1.0 409 Conflict
+curl -s --no-buffer -D /dev/stdout -X PUT http://localhost:4938/foo/1/One
+[foo, 1, One]
+HTTP/1.0 200 OK
+curl -s --no-buffer -D /dev/stdout -X PUT http://localhost:4938/foo/2/Two
+[foo, 2, Two]
+HTTP/1.0 200 OK
+curl -s --no-buffer -D /dev/stdout -X PUT http://localhost:4938/foo/3/Three
+[foo, 3, Three]
+HTTP/1.0 200 OK
+curl -s --no-buffer -D /dev/stdout -X GET http://localhost:4938/foo/2
+[foo, 2]
+HTTP/1.0 200 OK
+Two
+curl -s --no-buffer -D /dev/stdout -X GET http://localhost:4938/foo/1
+[foo, 1]
+HTTP/1.0 200 OK
+One
+curl -s --no-buffer -D /dev/stdout -X GET http://localhost:4938/foo/3
+[foo, 3]
+HTTP/1.0 200 OK
+Three
+.....server stopped
+...server up
+curl -s --no-buffer -D /dev/stdout -X POST http://localhost:4938/foo
+[foo]
+HTTP/1.0 201 Created
+curl -s --no-buffer -D /dev/stdout -X GET http://localhost:4938/foo/3
+[foo, 3]
+HTTP/1.0 404 Not Found
+.....server stopped
+...server up
+curl -s --no-buffer -D /dev/stdout -X GET http://localhost:4938/foo/3
+[foo, 3]
+HTTP/1.0 404 Not Found
+.....server stopped
+...server up
+curl -s --no-buffer -D /dev/stdout -X POST http://localhost:4938/foo
+[foo]
+HTTP/1.0 201 Created
+curl -s --no-buffer -D /dev/stdout -X POST http://localhost:4938/foo
+[foo]
+HTTP/1.0 409 Conflict
+curl -s --no-buffer -D /dev/stdout -X PUT http://localhost:4938/foo/1/One
+[foo, 1, One]
+HTTP/1.0 200 OK
+curl -s --no-buffer -D /dev/stdout -X PUT http://localhost:4938/foo/2/Two
+[foo, 2, Two]
+HTTP/1.0 200 OK
+curl -s --no-buffer -D /dev/stdout -X PUT http://localhost:4938/foo/3/Three
+[foo, 3, Three]
+HTTP/1.0 200 OK
+curl -s --no-buffer -D /dev/stdout -X GET http://localhost:4938/foo/2
+[foo, 2]
+HTTP/1.0 200 OK
+Two
+curl -s --no-buffer -D /dev/stdout -X GET http://localhost:4938/foo/1
+[foo, 1]
+HTTP/1.0 200 OK
+One
+curl -s --no-buffer -D /dev/stdout -X GET http://localhost:4938/foo/3
+[foo, 3]
+HTTP/1.0 200 OK
+Three
+curl -s --no-buffer -D /dev/stdout -X POST http://localhost:4938/bla
+[bla]
+HTTP/1.0 201 Created
+curl -s --no-buffer -D /dev/stdout -X PUT http://localhost:4938/bla/Sonntag/Sunday
+[bla, Sonntag, Sunday]
+HTTP/1.0 200 OK
+curl -s --no-buffer -D /dev/stdout -X PUT http://localhost:4938/bla/Montag/Monday
+[bla, Montag, Monday]
+HTTP/1.0 200 OK
+curl -s --no-buffer -D /dev/stdout -X PUT http://localhost:4938/bla/Dienstag/Tuesday
+[bla, Dienstag, Tuesday]
+HTTP/1.0 200 OK
+curl -s --no-buffer -D /dev/stdout -X GET http://localhost:4938/bla/Sonntag
+[bla, Sonntag]
+HTTP/1.0 200 OK
+Sunday
+curl -s --no-buffer -D /dev/stdout -X GET http://localhost:4938/bla/Montag
+[bla, Montag]
+HTTP/1.0 200 OK
+Monday
+curl -s --no-buffer -D /dev/stdout -X GET http://localhost:4938/bla/Dienstag
+[bla, Dienstag]
+HTTP/1.0 200 OK
+Tuesday
+curl -s --no-buffer -D /dev/stdout -X POST http://localhost:4938/fasel
+[fasel]
+HTTP/1.0 201 Created
+curl -s --no-buffer -D /dev/stdout -X PUT http://localhost:4938/fasel/1/I
+[fasel, 1, I]
+HTTP/1.0 200 OK
+curl -s --no-buffer -D /dev/stdout -X PUT http://localhost:4938/fasel/5/V
+[fasel, 5, V]
+HTTP/1.0 200 OK
+curl -s --no-buffer -D /dev/stdout -X PUT http://localhost:4938/fasel/10/X
+[fasel, 10, X]
+HTTP/1.0 200 OK
+curl -s --no-buffer -D /dev/stdout -X PUT http://localhost:4938/fasel/9/IX
+[fasel, 9, IX]
+HTTP/1.0 200 OK
+curl -s --no-buffer -D /dev/stdout -X GET http://localhost:4938/fasel/9
+[fasel, 9]
+HTTP/1.0 200 OK
+IX
+.....server stopped
+...server up
+curl -s --no-buffer -D /dev/stdout -X DELETE http://localhost:4938/foo/2
+[foo, 2]
+HTTP/1.0 404 Not Found
+curl -s --no-buffer -D /dev/stdout -X POST http://localhost:4938/foo
+[foo]
+HTTP/1.0 201 Created
+curl -s --no-buffer -D /dev/stdout -X DELETE http://localhost:4938/foo/2
+[foo, 2]
+curl -s --no-buffer -D /dev/stdout -X PUT http://localhost:4938/foo/1/One
+[foo, 1, One]
+HTTP/1.0 200 OK
+curl -s --no-buffer -D /dev/stdout -X PUT http://localhost:4938/foo/2/Two
+[foo, 2, Two]
+HTTP/1.0 200 OK
+curl -s --no-buffer -D /dev/stdout -X DELETE http://localhost:4938/foo/1
+[foo, 1]
+HTTP/1.0 204 No Content
+curl -s --no-buffer -D /dev/stdout -X GET http://localhost:4938/foo/2
+[foo, 2]
+HTTP/1.0 200 OK
+Two
+curl -s --no-buffer -D /dev/stdout -X GET http://localhost:4938/foo/1
+[foo, 1]
+HTTP/1.0 404 Not Found
+curl -s --no-buffer -D /dev/stdout -X DELETE http://localhost:4938/foo/1
+[foo, 1]
+.....server stopped
+...server up
+curl -s --no-buffer -D /dev/stdout -X POST http://localhost:4938/foo
+[foo]
+HTTP/1.0 201 Created
+curl -s --no-buffer -D /dev/stdout -X PUT http://localhost:4938/foo/1/One
+[foo, 1, One]
+HTTP/1.0 200 OK
+curl -s --no-buffer -D /dev/stdout -X PUT http://localhost:4938/foo/2/Two
+[foo, 2, Two]
+HTTP/1.0 200 OK
+curl -s --no-buffer -D /dev/stdout -X DELETE http://localhost:4938/foo/*
+[foo, *]
+HTTP/1.0 204 No Content
+curl -s --no-buffer -D /dev/stdout -X GET http://localhost:4938/foo/2
+[foo, 2]
+HTTP/1.0 404 Not Found
+curl -s --no-buffer -D /dev/stdout -X GET http://localhost:4938/foo/1
+[foo, 1]
+HTTP/1.0 404 Not Found
+.....server stopped
+...server up
+curl -s --no-buffer -D /dev/stdout -X POST http://localhost:4938/foo
+[foo]
+HTTP/1.0 201 Created
+curl -s --no-buffer -D /dev/stdout -X PUT http://localhost:4938/foo/1/One
+[foo, 1, One]
+HTTP/1.0 200 OK
+curl -s --no-buffer -D /dev/stdout -X PUT http://localhost:4938/foo/2/Two
+[foo, 2, Two]
+HTTP/1.0 200 OK
+curl -s --no-buffer -D /dev/stdout -X DELETE http://localhost:4938/foo
+[foo]
+HTTP/1.0 204 No Content
+curl -s --no-buffer -D /dev/stdout -X DELETE http://localhost:4938/foo
+[foo]
+HTTP/1.0 404 Not Found
+curl -s --no-buffer -D /dev/stdout -X GET http://localhost:4938/foo/2
+[foo, 2]
+HTTP/1.0 404 Not Found
+curl -s --no-buffer -D /dev/stdout -X GET http://localhost:4938/foo/1
+[foo, 1]
+HTTP/1.0 404 Not Found
+curl -s --no-buffer -D /dev/stdout -X POST http://localhost:4938/foo
+[foo]
+HTTP/1.0 201 Created
+.....server stopped
+...server up
+curl -s --no-buffer -D /dev/stdout -X POST http://localhost:4938/foo
+[foo]
+HTTP/1.0 201 Created
+curl -s --no-buffer -D /dev/stdout -X PUT http://localhost:4938/foo/1/One
+[foo, 1, One]
+HTTP/1.0 200 OK
+curl -s --no-buffer -D /dev/stdout -X PUT http://localhost:4938/foo/2/Two
+[foo, 2, Two]
+HTTP/1.0 200 OK
+curl -s --no-buffer -D /dev/stdout -X PUT http://localhost:4938/foo/3/Three
+[foo, 3, Three]
+HTTP/1.0 200 OK
+.....server stopped
+....server up
+curl -s --no-buffer -D /dev/stdout -X GET http://localhost:4938/foo/2
+[foo, 2]
+HTTP/1.0 200 OK
+Two
+curl -s --no-buffer -D /dev/stdout -X GET http://localhost:4938/foo/1
+[foo, 1]
+HTTP/1.0 200 OK
+One
+curl -s --no-buffer -D /dev/stdout -X GET http://localhost:4938/foo/3
+[foo, 3]
+HTTP/1.0 200 OK
+Three

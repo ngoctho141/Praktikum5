@@ -1,0 +1,265 @@
+<?xml version="1.0" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv='content-type' content='text/html; charset=latin-1'/>
+<title>Single page</title>
+<link type='text/css' href='slides.css' rel='stylesheet' media='print, screen'/>
+</head>
+<body>
+<div class='level-0 level'>
+<div class='separator'><a name='0'></a>Praktikum Programmieren mit Java III WS2017/2018 [0]</div>
+
+
+
+
+<p/>
+Dieses Material ist auch auf einer
+<a href="all.xhtml">einzelnen Seite</a> verf&uuml;gbar.
+
+<div class='level-1 level'>
+<div class='separator'><a name='1'></a>Aufgabenblatt  5: Networking, Collections-Framework, Java8 [1]</div>
+<div class='quoted'>
+<strong>Lernziele:</strong>
+<br/>Umgang mit Sockets und HTTP
+<br/>Wiederholung Maps, Java8
+</div>
+<p/>
+<strong>Einleitung</strong>
+<p/>
+<strong>Client und Server</strong> kommunizieren mit HTTP &#252;ber <strong>Port 4938</strong>, das hei&szlig;t sie tauschen HttpRequests und
+HttpResponses aus.
+<br/>
+Der Client erreicht beispielsweise einen Server, der auf dem Rechner <code>localhost</code> l&auml;uft, unter dem URL:
+<pre class='formatted'>http://localhost:4938</pre>
+
+Der Server bietet eine etwas vereinfachte <strong>REST-Schnittstelle</strong>.
+<a class='footnote' href='slide0002.xhtml'>&#x2217;</a>
+Die vier HTTP-Methoden <strong><code>GET</code>, <code>PUT</code>, <code>POST</code></strong>, und <strong><code>DELETE</code></strong> holen, &auml;ndern, erzeugen und l&ouml;schen Daten
+vom beziehungsweise auf dem Server.
+
+<p/>
+Der Server speichert eine Anzahl <strong>Maps</strong>,
+auf die die Clients mit diesen Methoden zugreifen.
+Zur Unterscheidung haben die verschiedenen Maps eindeutige <strong>IDs</strong> (nicht leere Strings).
+<p/>
+Die folgende Typdefinition repr&auml;sentiert eine solche Datenstruktur:
+<pre class='formatted'>Map&lt;String, Map&lt;String, String>> idsToMap;</pre>
+Diese &bdquo;&auml;u&szlig;ere&ldquo; Map bildet IDs auf weitere &bdquo;innere&ldquo; Maps ab,
+die die eigentlichen Schl&uuml;ssel/Werte-Paare speichern.
+Beispielsweise k&ouml;nnte unter der ID &bdquo;bla&ldquo; eine Map gespeichert sein,
+die die folgenden Entries enth&auml;lt:
+<table class="tab"><tr><td class="tab0"><strong>Key</strong>        
+</td><td class="tab0"><strong>Value</strong>
+</td>
+</tr><tr><td class="tab0">Sonntag      
+</td><td class="tab0">Sunday
+</td>
+</tr><tr><td class="tab0">Montag 
+</td><td class="tab0">Monday
+</td>
+</tr><tr><td class="tab0">Dienstag   
+</td><td class="tab0">Tuesday
+</td>
+</tr><tr><td class="tab0">...
+</td><td class="tab0">...
+</td>
+</tr></table>
+
+<strong>Key</strong> und <strong>Value</strong> sind jeweils vom Typ <code>String</code>.
+
+<p/>
+Das folgende Bild zeigt einen &#220;berblick &#252;ber die Datenstruktur <code>idsToMap</code>:
+ <br/><div class="figure">
+ </div>
+<object  data="mapsmap.svg" type="image/svg+xml" width="527" height="538"><embed src="mapsmap.svg" type="image/svg+xml"  width="527" height="538"/></object>
+
+<p/>
+Die <strong>obigen Methoden</strong> bewirken im Einzelnen:
+<ul><li><strong><code>POST</code> erzeugt</strong> zu einer ID (beispielsweise <code>bla</code>) eine <strong>neue Map</strong>.
+Der Aufruf f&#252;r den Server mit der Ressource <code>bla</code> lautet dazu:
+<pre class='formatted'>POST http://localhost:4938/bla</pre>
+Hinweis: Der Teil des URLs nach Port und / ist die &bdquo;Ressource&ldquo;, in diesem Beispiel <code>bla</code>.
+<p/>
+Wenn die Map zur ID schon vorher existiert, liefert der Server den Responsecode 409, Conflict.
+Andernfalls liefert der Request den Responsecode 201, Created.
+
+</li><li><strong><code>PUT</code> tr&#228;gt</strong> in die Map mit einer ID unter einem Key <strong>einen Wert ein</strong>.
+Der folgende Aufruf tr&auml;gt in der Map <code>bla</code> unter dem Key <code>Sonntag</code> den Wert <code>Sunday</code> ein:
+<pre class='formatted'>PUT http://localhost:4938/bla/Sonntag/Sunday</pre>
+Wenn die Map zur ID nicht existiert, liefert der Server den Responsecode 404, Not Found.
+Wenn der Schl&uuml;ssel in der Map schon existiert, &uuml;berschreibt <code>PUT</code> den alten Wert.
+Ansonsten f&uuml;gt es einen neuen Entry ein und liefert den Responsecode 200, OK.
+
+</li><li><strong><code>GET</code> liefert</strong> aus einer Map den Wert zu einem Key.
+Der folgenden Aufruf holt aus der Map <code>bla</code> den Wert des Keys <code>Sonntag</code>:
+<pre class='formatted'>GET http://localhost:4938/bla/Sonntag</pre>
+Wenn die Map zur ID oder in der Map der Schl&uuml;ssel nicht existiert,
+liefert der Server den Responsecode 404, Not Found.
+Im Erfolgsfall liefert der Request den Responsecode 200, OK.
+
+</li><li><strong><code>DELETE</code> l&#246;scht</strong> einen <strong>Entry</strong> aus einer Map.
+Der folgende Aufruf l&ouml;scht in der Map <code>bla</code> den Eintrag zum Key <code>Sonntag</code>:
+<pre class='formatted'>DELETE http://localhost:4938/bla/Sonntag</pre>
+Wenn die Map zur ID oder in der Map der Schl&uuml;ssel nicht existiert,
+liefert der Server den Responsecode 404, Not Found.
+Im Erfolgsfall liefert der Request den Responsecode 204, No Content.
+
+</li></ul>
+Hinweis: Browser k&ouml;nnen <code>GET</code>-Aufrufe absetzen.
+Etwas umst&auml;ndlicher (mit Web-Formularen) erzeugen sie auch <code>POST</code>-Requests.
+F&uuml;r die &uuml;brigen HTTP-Methoden brauchen Sie weitere Tools wie z.B.
+
+<a href="https://linux.die.net/man/1/curl"><cite>curl</cite>,</a>
+<a href="https://www.gnu.org/software/wget"><cite>wget</cite></a>
+oder Browser-Extensions.
+
+<p/>
+Beispiele f&uuml;r Aufrufe und
+ <a href="#Test">Testm&#246;glichkeiten</a>
+mit <cite>curl</cite> erfolgen weiter unten.
+
+<h2>Aufgabe 1</h2>
+
+Das folgende statische Klassendiagramm zeigt Ihnen die Typen und ihre Beziehungen
+in einer m&ouml;glichen Implementierung:
+ <br/><div class="figure">
+ </div>
+<object  data="mapserver.svg" type="image/svg+xml" width="1221" height="421"><embed src="mapserver.svg" type="image/svg+xml"  width="1221" height="421"/></object>
+
+Hinweis: Folgende Methoden sind <strong>statisch</strong>:
+<table class="tab"><tr><td class="tab0"><code>DataStore.load()</code>
+</td>
+</tr><tr><td class="tab0"><code>Server.serveRequests(DataStore&nbsp;dataStore)</code>
+</td>
+</tr><tr><td class="tab0">alle Methoden der Utility-Klasse <code>Processors</code>
+</td>
+</tr></table>
+
+Zu den Klassen im Einzelnen:
+
+<ul><li><code>DataStore</code> enth&auml;lt die "Map of Maps":
+<ul><li><code>save</code> und <code>load</code> speichern und laden die Daten mit Objekt-Serialisierung.
+</li><li><code>newMap(String&nbsp;id)</code> erstellt zur id als Value eine neue Map.
+</li><li><code>putValue(String&nbsp;id,&nbsp;String&nbsp;key,&nbsp;String&nbsp;value)</code> f&#252;gt unter der id in der
+ Map zum Key einen neuen Eintrag ein.
+</li><li><code>getValue(String&nbsp;id,&nbsp;String&nbsp;key)</code> liefert einen Wert aus der Map zur entsprechenden id
+ und einem Key f&#252;r die Map.
+</li><li><code>deleteEntry(String&nbsp;id,&nbsp;String&nbsp;key)</code> l&#246;scht einen Eintrag in der Map.
+</li><li><code>clear(String&nbsp;id)</code> l&#246;scht alle Eintr&#228;ge der Map zum Key id.
+</li><li><code>deleteMap(String&nbsp;id)</code> l&#246;scht den Eintrag in der idToMaps.
+</li></ul>
+</li><li><code>HttpResponseCode</code> repr&auml;sentiert die verschiedenen
+<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status">HTTP-Responsecodes,</a>
+jeweils mit Code (<code>int</code>) und Text (<code>String</code>).
+
+</li><li><code>Response</code> kapselt einen <code>HTTPResponseCode</code> mit einem optionalen Text-R&uuml;ckgabewert,
+der beispielsweise bei einer Antwort auf einen <code>GET</code>-Request n&ouml;tig ist.
+
+</li><li><code>Server</code> enth&auml;lt die <code>main</code>-Methode.
+
+<ul><li><code>serveRequests(DataStore&nbsp;dataStore)</code> nimmt HTTP-Requests mit REST-Semantik entgegen,
+aktualisiert gegebenenfalls die Daten
+und liefert HTTP-Responses zur&#252;ck.
+</li></ul>
+
+</li><li>Utility-Klasse <code>Processors</code> definiert einzelne statische Methoden
+f&uuml;r die verschiedenen HTTP-Methoden GET, PUT, POST, DELETE der REST-Requests.
+<ul><li><code>createNewMap(String[]&nbsp;resource,&nbsp;DataStore&nbsp;dataStore)</code> erzeugt eine neue Map mit der id,
+falls eine Map mit derselben id noch nicht vorhanden ist.
+</li><li><code>getValue(String[]&nbsp;resource,&nbsp;DataStore&nbsp;dataStore)</code> liefert den Wert zur
+Resource id/key aus der zugeh&#246;rigen Map.
+</li><li><code>putValue(String[]&nbsp;resource,&nbsp;DataStore&nbsp;dataStore)</code> f&#252;gt die resource /id/key/value
+in die entsprechende Map ein.
+</li><li><code>delete(String[]&nbsp;resource,&nbsp;DataStore&nbsp;dataStore)</code> l&#246;scht abh&#228;ngig von der Resource
+id/* oder id/key oder id alle Eintr&#228;ge einer inneren Map,
+oder den Eintrag zum gegebenen key in der Map,
+oder den Eintrag zur id in der "Map of Maps" selbst.
+Ben&#252;tzt dazu die Methoden <code>clearMap</code>, <code>deleteEntry</code>, oder <code>deleteMap</code>.
+</li></ul>
+</li></ul>
+<p/>
+Gegeben ist das Interfacce
+<a href="DataStore.java">DataStore.java</a>
+<br/>
+Die Persistierung der Daten erfolgt mittels <strong>Serialisierung</strong> in einer Klasse <code>FileDataStore</code>,
+die das Interface <code>DataStore</code> implementiert.
+
+<p/>
+<strong>Erstellen Sie die Klassen gem&#228;&#223; der obigen Beschreibung</strong>.
+
+<h2>Aufgabe 2</h2>
+
+ <a name="Test"></a>
+<ul><li>Das folgende Beispiel wurde unter Linux mit einem X-Terminal durchgef&#252;hrt.
+<ul><li>Der Aufruf
+<pre class='formatted'>curl -D /dev/stdout -X POST http://localhost:4938/foo</pre>
+liefert vom Server die Antwort:
+<pre class='formatted'>HTTP/1.0 201 Created
+</pre>
+</li><li>Der Aufruf
+<pre class='formatted'>curl -D /dev/stdout -X POST http://localhost:4938/foo</pre>
+liefert vom Server die Anwort:
+<pre class='formatted'>HTTP/1.0 201 Created
+</pre>
+</li><li>Der Aufruf
+<pre class='formatted'>curl -D /dev/stdout -X PUT http://localhost:4938/bla/Sonntag/sunday</pre>
+liefert vom Server die Antwort:
+<pre class='formatted'>HTTP/1.0 200 OK
+
+sunday</pre>
+</li><li>Der Aufruf
+<pre class='formatted'>curl -D /dev/stdout -X GET http://localhost:4938/bla/Sonntag</pre>
+liefert vom Server die Antwort:
+<pre class='formatted'>HTTP/1.0 200 OK
+
+sunday</pre>
+</li><li>Letzterer Aufruf k&#246;nnte auch in einem Browser durchgef&#252;hrt werden. Der Aufruf lautet dann:
+<pre class='formatted'>http://localhost:4938/bla/Sonntag</pre>
+Im Browserfenster ist dann die Anwort
+<pre class='formatted'>sunday</pre>
+zu sehen.
+</li></ul>
+
+
+
+</li><li>Weitere Tests f&#252;r Ihre Implementierung k&#246;nnen Sie mit
+dem <a href="mapserver-test.sh">Test-Script</a> durchf&#252;hren,
+das eine Unix-Bash erfordert
+(verf&uuml;gbar auf MacOS und Linux).
+Auf Windows formulieren Sie bitte dieses Script
+<a href="https://de.wikipedia.org/wiki/BAT-Datei">als Batchfile.</a>
+
+<div class='quoted'>
+<img class='icon' src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACYElEQVR42pXTW0iTYRgH8P82cbMp
+ZYaUwag8dZE4j7lACaQLGyVJUBpdGGQMTHe3sovs4FWRHaAunLZSyrqohEzCQ2Pq2EgYFKhoEsHK
+IBzEEpTN79+zScnyAH3w4/0evuf9v+93wrsSYC0jJux2FqFlTwKysNHhKlnNuR9wl+JpwAa25aJH
+2uLWDZCVVhnOR+kniyasTObw+3kNC/U4um7Av1sfKoLacwADiyNmKkqQisfMLiPcOhX0awYMm2I5
+jTjmb9JzZtpBx+NuTk10cL55EyuTcWbNALdpxUgxtGPl8C1Nn2bPmxe0Wm3sfNZFZbKab0sxoQW2
+bhyQh3P+m5tl673sH3jCxkYbX/U8lPolg61JrE3FhVUBzpJlQwXY4juCz2F/tUxwcnzcwfp6Kz3e
+B1L3UflWSe9hfE1RwxATMBpZOfLe83H5x6Nkab4jOhgI3GNDQx39/htS3xZNXOhKZGMabsUEeEzR
+yYaPNZhbCpZL41VxSVyky3WW4bBVzi2ijkowlx9q8HO7Bjkrz0BWdxfjbqBPL01V4kTU3FwVe3sr
+ODtbIfUhUSYKuTQYz+vpcMhU1fKXmIecCQvmldBOacgXeaKAra17CeygzbZL6gxhENITSuKXeizs
+06EsGuA9iO75cbVcjNx/itgW1e9KprE4iZ3PE6WO7C5BxIs4KlPgfSNeqwEdZk7iV8itZtirZdij
++0sZ0wqZ8D6OIbeGkZ7QqEpGyNcJ+o5jUX6QdJxKQ21LNtqas9Au7M1ZKvvyCPuVbBkzRUasa5lo
+N6fCJjeQ+udZRv62+P+kEerfm7CJUv3wFI8AAAAASUVORK5CYII='/>
+ Setzen Sie die Variable <code>CLASSPATH</code> auf das Directory mit dem Toplevel-Package Ihres Codes.
+</div>
+
+Wenn Sie alles richtig umgesetzt haben, sollten Sie folgendes
+<a href="ergebnis-mapservertest.txt">Ergebnis</a>
+erhalten.
+<p/>
+Alternativ k&#246;nnen Sie wie gewohnt JUnit Tests verwenden. Sie finden die f&#252;r diese Aufgabe
+relevanten Tests unter:
+<a href="ServerTest.java">ServerTest.java</a>
+
+
+</li></ul>
+</div>
+</div>
+<div class='separator titletext'>Map</div>
+<br/><a href="#0">Praktikum Programmieren mit Java III WS2017/2018</a>
+<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#1">Aufgabenblatt  5: Networking, Collections-Framework, Java8</a>
+</body>
+</html>
