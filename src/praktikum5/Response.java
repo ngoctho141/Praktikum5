@@ -9,7 +9,7 @@ package praktikum5;
  *
  * @author s-nnguy1
  */
-public class Response {
+public class Response{
     HttpResponseCode code;
     String value;
 
